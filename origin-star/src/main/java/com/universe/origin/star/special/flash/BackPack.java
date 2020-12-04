@@ -1,6 +1,8 @@
 package com.universe.origin.star.special.flash;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  * 01 背包问题
@@ -12,6 +14,7 @@ public class BackPack {
 
     public static void main(String[] args) {
         int[] weight = new int[]{2, 5, 4, 2};
+        int[] weight2 = new int[]{2, 5, 4, 2};
         int[] value = new int[]{6, 3, 5, 4};
         //最优情况下的加车情况
         int[] bestItemStatus = new int[value.length];
@@ -19,6 +22,8 @@ public class BackPack {
         int[] itemStatus = new int[value.length];
         System.out.println(backTrack(0, 0, bestItemStatus, itemStatus, value, weight, 0, 0));
         System.out.println(Arrays.toString(bestItemStatus));
+
+        System.out.println(Arrays.stream(weight2).boxed().collect(Collectors.toList()));
     }
 
 
