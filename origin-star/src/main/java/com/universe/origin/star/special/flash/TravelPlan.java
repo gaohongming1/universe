@@ -1,6 +1,5 @@
 package com.universe.origin.star.special.flash;
 
-import java.nio.charset.CoderResult;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -42,7 +41,6 @@ public class TravelPlan {
      * @param currentValue    当前结果值
      * @param loopIndex       第几次路径选择
      * @param originNode      起始节点因为最后要回到起始节点所以需要记录下
-     *
      */
     public static Integer calc(int[][] adjacencyMatrix, int lastCityIndex, int[] currentValueStatus, int[] bestValueStatus, int bestValue, int currentValue, int loopIndex, int originNode) {
 

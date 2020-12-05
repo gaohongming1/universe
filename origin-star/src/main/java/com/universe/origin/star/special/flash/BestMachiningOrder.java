@@ -17,7 +17,7 @@ public class BestMachiningOrder {
         int[] workTime4 = new int[]{7, 2, 2, 4, 7, 4};
         int[] partStatus2 = new int[]{0, 1, 2, 3, 4, 5};
         int[] bestValueStatus2 = new int[]{0, 1, 2, 3, 4, 5};
-        System.out.println(calc(workTime3, workTime4, 0, 0, 0, Integer.MAX_VALUE, partStatus2,bestValueStatus2));
+        System.out.println(calc(workTime3, workTime4, 0, 0, 0, Integer.MAX_VALUE, partStatus2, bestValueStatus2));
         System.out.println(Arrays.toString(bestValueStatus2));
 
     }
@@ -33,7 +33,7 @@ public class BestMachiningOrder {
      * @param bestValue  当前值的最优解
      * @param partStatus 记录当前零件的选择状态 划分为两个区间，中间点为i 前面的是已经加工的零件的下表存储，后面是还没有进行加工的零件的下标
      */
-    public static int calc(int[] workTime1, int[] workTime2, int i, int f1, int f2, int bestValue, int[] partStatus,int[] bestValueStatus) {
+    public static int calc(int[] workTime1, int[] workTime2, int i, int f1, int f2, int bestValue, int[] partStatus, int[] bestValueStatus) {
 
         //进行终点的收集 到达叶子节点代表找到了新的最优值 partStatus记录的加工的顺序
         //这里可以进行变种求解所有的加工结果，将剪枝函数去掉，在这里记录结果即可
@@ -45,7 +45,7 @@ public class BestMachiningOrder {
             return bestValue;
         }
 
-        //从i开始搜索，还有length-i个零件还未加工
+        //从i开始搜索，还有length-i个零件还未加工 在未加工区间进行搜寻
         for (int j = i; j < workTime1.length; j++) {
 
             //f1 所需的时间直接累加
@@ -58,7 +58,7 @@ public class BestMachiningOrder {
             if (f2 <= bestValue) {
                 // 交换j 与i 在partStatus当中的状态,将j交换到已加工区间，这里还有其他的方式，比如数组+标记方式
                 swap(partStatus, j, i);
-                bestValue = calc(workTime1, workTime2, i + 1, f1, f2, bestValue, partStatus,bestValueStatus);
+                bestValue = calc(workTime1, workTime2, i + 1, f1, f2, bestValue, partStatus, bestValueStatus);
                 //回溯结束 节点状态回退
                 swap(partStatus, j, i);
             }

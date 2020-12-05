@@ -31,7 +31,6 @@ public class NQueen {
      */
     public static void calc(List<List<Integer>> allResult, int[] currentValue, int i, int n) {
 
-
         // 搜索结束 i大于数组的长度
         if (i > n - 1) {
             //代表找到一种可能解加入到所有的解之中
@@ -39,7 +38,7 @@ public class NQueen {
         }
 
         /**
-         * 搜索过程
+         * 搜索过程 就是判断当前列是否能够存放
          */
         for (int j = 0; j < n; j++) {
             if (isOK(currentValue, i, j, n)) {
@@ -49,7 +48,6 @@ public class NQueen {
                 calc(allResult, currentValue, i + 1, n);
             }
         }
-
 
     }
 

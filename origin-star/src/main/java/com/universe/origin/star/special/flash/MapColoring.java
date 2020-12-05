@@ -24,7 +24,7 @@ public class MapColoring {
         //记录所有的结果
         int[][] allResult = new int[adjacencyMatrix.length][adjacencyMatrix.length];
         int[] currentValue = new int[adjacencyMatrix.length];
-        coloring(adjacencyMatrix,allResult,0,currentValue,3,0);
+        coloring(adjacencyMatrix, allResult, 0, currentValue, 3, 0);
         for (int i = 0; i < allResult.length; i++) {
             System.out.println(Arrays.toString(allResult[i]));
         }
@@ -47,7 +47,7 @@ public class MapColoring {
          * 循环颜色
          */
 
-        if (i > adjacencyMatrix.length-1) {
+        if (i > adjacencyMatrix.length - 1) {
             //将当前结果保存到全部结果中
             for (int j = 0; j < currentValue.length; j++) {
                 allResult[resultIndex][j] = currentValue[j];
@@ -75,9 +75,9 @@ public class MapColoring {
      * 循环已经作色的点 当相邻再判断颜色是否相等
      *
      * @param adjacencyMatrix 邻接矩阵
-     * @param colorIndex 判断的颜色
-     * @param currentValue 当前值列表
-     * @param i 当前节点
+     * @param colorIndex      判断的颜色
+     * @param currentValue    当前值列表
+     * @param i               当前节点
      * @return
      */
     public static boolean isOk(int[][] adjacencyMatrix, int colorIndex, int[] currentValue, int i) {

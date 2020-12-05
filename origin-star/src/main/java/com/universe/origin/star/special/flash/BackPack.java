@@ -1,8 +1,6 @@
 package com.universe.origin.star.special.flash;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.stream.Collectors;
 
 /**
  * 01 背包问题
@@ -14,7 +12,6 @@ public class BackPack {
 
     public static void main(String[] args) {
         int[] weight = new int[]{2, 5, 4, 2};
-        int[] weight2 = new int[]{2, 5, 4, 2};
         int[] value = new int[]{6, 3, 5, 4};
         //最优情况下的加车情况
         int[] bestItemStatus = new int[value.length];
@@ -23,7 +20,6 @@ public class BackPack {
         System.out.println(backTrack(0, 0, bestItemStatus, itemStatus, value, weight, 0, 0));
         System.out.println(Arrays.toString(bestItemStatus));
 
-        System.out.println(Arrays.stream(weight2).boxed().collect(Collectors.toList()));
     }
 
 
@@ -39,8 +35,10 @@ public class BackPack {
      */
     public static int backTrack(int i, int bestResult, int[] bestItemStatus, int[] itemStatus, int[] value, int[] weight, int currentValue, int currentWeight) {
 
-        //当到达叶子节点一定是新的最优解，否则会被剪枝函数卡住来不到最后的节点
-        //当把最后一个节点加入购物车后，此时递归过来的i的值是length+1 所以采用大于判断
+        /**
+         * 到达这里代表可能产生最优解，因为减枝叶函数会判断没有可能达到最优解的，路径不会继续走下去
+         * 当吧最后一个节点加车之后，递归过来的i是等于长度的，所以是i> 数组下标
+         */
         if (i > value.length - 1) {
             //返回最优解
             for (int j = 0; j < value.length; j++) {
@@ -49,16 +47,16 @@ public class BackPack {
             bestResult = currentValue;
             return bestResult;
         }
-
-        //搜索
-        //如果当前重量加上下一路径重量小于总重量则加上去
+        /**
+         * 这里是限界条件如果符合加车则加车，否则走下面的回溯然后走不加车，相当于两个选择
+         */
         if (currentWeight + weight[i] <= MAX_WEIGHT) {
             //当前物品走加车状态
             itemStatus[i] = 1;
             currentValue += value[i];
             currentWeight += weight[i];
 
-            //进入下一节点的判断，计算当前值加上下一节点之后的所有的可能值的最优解
+            //进入下一节点的判断，计算当前值加上下一节点之后的所有的可能值的最优解 如果能走到叶子节点，会将最优结果记录下来
             bestResult = backTrack(i + 1, bestResult, bestItemStatus, itemStatus, value, weight, currentValue, currentWeight);
 
             // 当前节点回溯，代表当前节点不再加入车，进行下面的判断，剩余物品除去当前节点能否得到最优解
@@ -92,6 +90,5 @@ public class BackPack {
         }
         return currentValue;
     }
-
 
 }
