@@ -115,8 +115,7 @@ public class BackPack02 {
             this.index = index;
         }
 
-        public Node() {
-        }
+
 
         public Integer getCurrentValue() {
             return currentValue;
