@@ -29,7 +29,6 @@ public class BackPack02 {
      * @param value
      */
     public Integer calc(int[] weight, int[] value, int maxWeight, int[] bestValueStatus) {
-
         //定义当前最优解
         int bestValue = 0;
 
