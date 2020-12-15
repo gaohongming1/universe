@@ -1,4 +1,4 @@
-package 牛客网刷题;
+package com.universe.origin.star.nowcoder;
 
 import java.util.ArrayList;
 
