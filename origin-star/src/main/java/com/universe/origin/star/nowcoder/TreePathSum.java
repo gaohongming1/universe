@@ -27,7 +27,7 @@ public class TreePathSum {
     }
 
     private void dfs(TreeNode node, int pathSum, int sum, ArrayList<ArrayList<Integer>> result, List<Integer> path){
-        if(node == null || sum < 0){
+        if(node == null || pathSum > sum){
             return;
         }
         path.add(node.val);
