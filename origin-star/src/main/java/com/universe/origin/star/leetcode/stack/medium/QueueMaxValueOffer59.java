@@ -29,48 +29,45 @@ public class QueueMaxValueOffer59 {
 
 
     class MaxQueue {
+        //正常序列
         private Queue<Integer> queue;
+        //维护正常队列中如果出对不对递减序列造成影响的序列
         private Deque<Integer> deque;
 
         public MaxQueue() {
             deque = new LinkedList<>();
             queue = new LinkedList<>();
-            deque.offerLast()
         }
 
         public int max_value() {
-            return stack.peek();
-
+            if (deque.isEmpty()){
+                return -1;
+            }
+            return deque.peekFirst();
         }
 
         public void push_back(int value) {
-            if (stack.isEmpty()){
-                stack.add(value);
-                return;
+            //维护递减序列
+            while(!deque.isEmpty() && value > deque.peekLast()){
+                //双端队列队尾出队
+                deque.pollLast();
             }
-            // 出队一个和放入的元素比较
-            int headNum = stack.pop();
-            if (headNum>=value){
-                stack.add(value);
-                stack.add(headNum);
-            }else {
-                stack.add(headNum);
-                stack.add(value);
-            }
-            queue.add(value);
+
+            deque.offerLast(value);
+            queue.offer(value);
 
         }
 
         public int pop_front() {
-            int num =  queue.poll();
-
-            boolean deleteStatus = true;
-            //栈不为空并且清除标记还未完成
-            while (!stack.isEmpty() && deleteStatus){
-
+            if (queue.isEmpty()){
+                return -1;
             }
-
-            return -1;
+            //队列出队一个
+            int n = queue.poll();
+            if (n == deque.peekFirst()){
+                deque.pollFirst();
+            }
+            return n;
         }
     }
 
