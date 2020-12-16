@@ -33,15 +33,15 @@ public class TreePathSum {
         if(node == null){
             return;
         }
+
         if(path.add(node.val) && (pathSum += node.val) == sum
                 && node.left == null && node.right == null){
             result.add(new ArrayList<>(path));
-            return;
         }
-        if(pathSum < sum){
-            dfs(node.left, pathSum, sum, result, path);
-            dfs(node.right, pathSum, sum, result, path);
-        }
+
+        dfs(node.left, pathSum, sum, result, path);
+        dfs(node.right, pathSum, sum, result, path);
+
         path.removeLast();
     }
 }
