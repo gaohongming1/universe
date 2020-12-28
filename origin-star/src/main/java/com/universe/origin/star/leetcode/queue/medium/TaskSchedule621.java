@@ -47,6 +47,45 @@ public class TaskSchedule621 {
         taskSchedule621.leastInterval(new char[]{'A','A','A','B','B','B', 'C','C','C', 'D', 'D', 'E'},2);
     }
 
+
+    /**
+     * 贪心 + 矩阵
+     * 宽度为窗口大小+1  长度是最多的任务长度  然后将任务按列向下排列
+     * 这时候分为两种情况
+     * 最大时间   =  （n+1）* （maxTaskNum - 1） + 长度最大任务的并列数量
+     * 当任务种类大于窗口大小的时候
+     * 最大时间  = task。size   也就是任务数量
+     * @param tasks
+     * @param n
+     * @return
+     */
+    public int leastInterval2(char[] tasks, int n) {
+        // 建立 宽度为 n+1   长度为最大任务数量的队列
+        //求解任务种类和最大的任务数量
+        Map<Character, Integer> map = new HashMap<>();
+        Integer maxNum = 0;
+        Integer maxTaskNum = 0;
+        for (int i = 0; i < tasks.length; i++) {
+            if (map.containsKey(tasks[i])) {
+                map.put(tasks[i], map.get(tasks[i]) + 1);
+            } else {
+                map.put(tasks[i], 1);
+            }
+            if (map.get(tasks[i]) > maxNum){
+                maxNum = map.get(tasks[i]);
+            }
+        }
+
+        // 找到最大并行数量
+        for (Map.Entry<Character,Integer> entry:map.entrySet()){
+          if (entry.getValue().equals(maxNum)){
+              maxTaskNum +=1;
+          }
+        }
+            return Math.max(tasks.length,(maxNum -1) * (n +1) + maxTaskNum);
+    }
+
+
     /**
      * todo 待优化
      * 目前复杂度较高每次获取下次可进入窗口的任务
