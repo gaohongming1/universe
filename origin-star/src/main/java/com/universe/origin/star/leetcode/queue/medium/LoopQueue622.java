@@ -41,14 +41,14 @@ public class LoopQueue622 {
             size = 0;
         }
 
+
         public boolean enQueue(int value) {
             if (size == array.length){
                 return false;
             }
-            size +=1;
-            //当前的队尾
+            //队尾元素 = （head + count）% size
             array[(head+size)%array.length] = value;
-            size+=1;
+            size +=1;
             return true;
         }
 
@@ -59,7 +59,6 @@ public class LoopQueue622 {
 
             // 有size==0校验，不会出现出队不存在的
             int index = (head +1) % array.length;
-            array[index] = 0;
             size -=1;
             head = index;
             return true;
@@ -76,7 +75,7 @@ public class LoopQueue622 {
             if (size==0){
                 return -1;
             }
-            return array[tail];
+            return array[(head+size-1)%array.length];
         }
 
         public boolean isEmpty() {
