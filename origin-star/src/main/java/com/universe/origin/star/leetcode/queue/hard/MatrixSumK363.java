@@ -14,6 +14,7 @@ package com.universe.origin.star.leetcode.queue.hard;
  * 如果行数远大于列数，你将如何解答呢？
  * <p>
  * ST算法学习
+ * 前缀和思想
  */
 public class MatrixSumK363 {
     public static void main(String[] args) {
@@ -56,7 +57,7 @@ public class MatrixSumK363 {
             }
         }
 
-
+        //记录所有的前缀和之后开始计算每一个的大小
         int best1 = Integer.MIN_VALUE;
         for (int i = 0; i < row; i++) {
             //循环列进行计算 在i行位置  0-j列的面积以及值是否满足条件
