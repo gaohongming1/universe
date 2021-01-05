@@ -1,4 +1,4 @@
-package com.universe.origin.star.leetcode.queue.easy;
+package com.universe.origin.star.leetcode.heap.easy;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;
