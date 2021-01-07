@@ -1,5 +1,7 @@
 package com.universe.origin.star.leetcode.heap.medium;
 
+import java.util.Arrays;
+
 /**
  * 有 n 个城市通过 m 个航班连接。每个航班都从城市 u 开始，以价格 w 抵达 v。
  * <p>
@@ -39,19 +41,84 @@ package com.universe.origin.star.leetcode.heap.medium;
  * 每个航班的价格范围是 [1, 10000]
  * k 范围是 [0, n - 1]
  * 航班没有重复，且不存在自环
+ * todo 待整理
  */
 public class TheCheapestInKSite787 {
     public static void main(String[] args) {
         TheCheapestInKSite787 theCheapestInKSite787 = new TheCheapestInKSite787();
         int[][] flights = new int[][]{
-                {0,1,100},
-                {1,2,100},
-                {0,2,500}
+                {0,1,2},
+                {1,2,1},
+                {2,0,10}
         };
-        theCheapestInKSite787.findCheapestPrice(3,flights,0,2,0);
+        theCheapestInKSite787.findCheapestPrice1(3,flights,1,2,1);
     }
 
 
+    /**
+     * 动态规划
+     * 状态表达方程是
+     * f（i） = min((f(i-1) + price),price i)
+     * 状态转移是 经过0此中转到达k1  k2 .... 等    进过1次中转到达.....依次类推
+     * @param n
+     * @param flights
+     * @param src
+     * @param dst
+     * @param K
+     * @return
+     */
+    public int findCheapestPrice1(int n, int[][] flights, int src, int dst, int K) {
+        // 初始化DP数组 记录经过几次中转到达城市的最小距离 其中
+        int[][] dp = new int[K+1][n];
+        for (int i = 0; i <= K; i++) {
+            Arrays.fill(dp[i],Integer.MAX_VALUE);
+        }
+        for (int i = 0; i <= K; i++) {
+            dp[i][src] = 0;
+        }
+        // 初始化经过0此到达点的最小距离
+        for (int i = 0; i < flights.length; i++) {
+            // 如果起点是src
+            if (flights[i][0] == src){
+                dp[0][flights[i][1]] = flights[i][2];
+            }
+        }
+
+
+
+
+        //从经过一次中转开始完善dp表
+        for (int i = 1; i <= K; i++) {
+            // 循环flights
+            for (int j = 0; j < flights.length; j++) {
+                int[] group = flights[j];
+                //判断当前的路径的起点在i-1次的终点是否可到达
+                if (dp[i-1][group[0]]!=Integer.MAX_VALUE){
+                    // 比较经过上一次中转 和src直达当前点的大小
+                    int len1 = dp[i-1][group[0]] + group[2];
+                    // 直达大小
+                    int len2 = dp[0][group[1]];
+                    dp[i][group[1]] = Math.min(Math.min(len1,len2),dp[i][group[1]]);
+                }
+            }
+        }
+        return dp[K][dst] ==Integer.MAX_VALUE?-1: dp[K][dst];
+
+
+    }
+
+
+
+
+    /**
+     * dfs搜索 、 回溯法
+     * @param n
+     * @param flights
+     * @param src
+     * @param dst
+     * @param K
+     * @return
+     */
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
         int[][] matrix = new int[n][n];
         // 邻接矩阵存储有向图
