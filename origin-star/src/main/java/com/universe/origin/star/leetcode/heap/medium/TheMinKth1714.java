@@ -31,7 +31,7 @@ public class TheMinKth1714 {
      * @return
      */
     public int[] smallestK2(int[] arr, int k) {
-
+        return null;
     }
 
 
