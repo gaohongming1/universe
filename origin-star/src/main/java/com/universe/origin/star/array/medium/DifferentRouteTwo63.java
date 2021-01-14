@@ -38,15 +38,22 @@ import java.util.Map;
 public class DifferentRouteTwo63 {
     public static void main(String[] args) {
         DifferentRouteTwo63 differentRouteTwo63 = new DifferentRouteTwo63();
-        int[][] matrix = new int[][]{
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0}
-        };
+        int[][] matrix = new int[][]{{1,0} };
         System.out.println(differentRouteTwo63.uniquePathsWithObstacles(matrix));
     }
 
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        if (obstacleGrid.length==1 && obstacleGrid[0].length==1){
+            if (obstacleGrid[0][0] == 0){
+                return 1;
+            }else {
+                return 0;
+            }
+        }
+
+        if (obstacleGrid[0][0] == 1){
+            return 0;
+        }
         return calc(obstacleGrid.length , obstacleGrid[0].length, new HashMap<String, Integer>(), 0, 0, obstacleGrid);
     }
 
@@ -83,10 +90,9 @@ public class DifferentRouteTwo63 {
             } else {
                 value2 = calc(m, n, history, xr, y, obstacleGrid);
                 // 记录下来当前点到终点的线路
-                history.put(y + "_" + xr, value1);
+                history.put(y + "_" + xr, value2);
             }
         }
         return value1 + value2;
-
     }
 }
