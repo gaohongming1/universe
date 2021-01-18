@@ -1,4 +1,4 @@
-package com.universe.origin.star.array.easy;
+package com.universe.origin.star.leetcode.array.easy;
 
 /**
  * 70. 爬楼梯

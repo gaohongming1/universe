@@ -1,4 +1,4 @@
-package com.universe.origin.star.array.medium;
+package com.universe.origin.star.leetcode.array.medium;
 
 /**
  * 剑指 Offer 46. 把数字翻译成字符串

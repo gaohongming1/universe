@@ -1,4 +1,4 @@
-package com.universe.origin.star.array.medium;
+package com.universe.origin.star.leetcode.array.medium;
 
 import java.util.HashMap;
 import java.util.Map;

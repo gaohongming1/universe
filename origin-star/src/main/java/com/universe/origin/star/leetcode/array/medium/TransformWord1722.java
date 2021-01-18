@@ -1,4 +1,4 @@
-package com.universe.origin.star.array.medium;
+package com.universe.origin.star.leetcode.array.medium;
 
 import java.util.*;
 
@@ -42,6 +42,7 @@ public class TransformWord1722 {
 
     /**
      * 使用dfs进行搜索，开始单词和结束单词的差别字母作为结束的步骤
+     * 超时
      */
     public List<String> findLadders(String beginWord, String endWord, List<String> wordList) {
         //初始化当前元素可一步转换成的元素
@@ -107,6 +108,12 @@ public class TransformWord1722 {
         boolean status = false;
         //找到当前的元素可一步转换成的元素
         List<String> canVisit = map.get(currentStr);
+
+        if (canVisit.contains(end)){
+            result.add(end);
+            return true;
+        }
+
         // 循环可一步转换的列表
         for (int i = 0; i < canVisit.size(); i++) {
             String current = canVisit.get(i);
@@ -125,7 +132,6 @@ public class TransformWord1722 {
                 if (status) {
                     break;
                 } else {
-                    visited.remove(current);
                     result.remove(current);
                 }
             }
@@ -135,6 +141,9 @@ public class TransformWord1722 {
 
     public boolean isDifferOneStr(String str1, String str2) {
         int count = 0;
+        if (str1.length()!=str2.length()){
+            return false;
+        }
         for (int i = 0; i < str1.length(); i++) {
             if (str1.charAt(i) != str2.charAt(i)) {
                 count += 1;
