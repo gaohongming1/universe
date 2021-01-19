@@ -47,34 +47,53 @@ public class RotateLinkList61 {
         rotateLinkList61.rotateRight(l1,2);
     }
 
+
+    /**
+     * 每次移动一位 超过时间限制
+     * @param head
+     * @param k
+     * @return
+     */
     public ListNode rotateRight(ListNode head, int k) {
-        ListNode index = head;
-//        int count = 0;
-//        ListNode change = head;
-//        while (count < k && change != null) {
-//            change = change.next;
-//            count += 1;
-//        }
-
+        if (head==null ||head.next==null|| k==0){
+            return head;
+        }
         int score = 1;
-        int temp = 0;
-        while (score < k) {
+
+        //缩减次数
+        int len = 0;
+        ListNode node = head;
+        while (node!=null){
+            len+=1;
+            node = node.next;
+        }
+
+        // 计算K
+        if (k>len){
+            k = k % len;
+        }
+
+        while (score <= k) {
             // index 和count开始交换
+            ListNode change = head.next;
+            ListNode index = head;
+            int be = head.val;
+            int af = change.val;
+
             while (index != null) {
-                ListNode change = index.next;
-                //记录下个节点的值
-                temp = change.val;
-                change.val = index.val;
+                //先记录下个节点的值
+                af = change.val;
+                // 再把前一个的值更新到下个节点上
+                change.val = be;
+                // 在更新前一个节点的值
+                be = af;
 
-
-                //向后移动
                 index = index.next;
-                if (change.next == null) {
+                if (index!=null && index.next!=null){
+                    change = index.next;
+                }else {
                     change = head;
-                } else {
-                    change = change.next;
                 }
-
             }
             score +=1;
         }
