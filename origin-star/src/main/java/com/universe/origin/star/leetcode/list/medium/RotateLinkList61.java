@@ -44,32 +44,77 @@ public class RotateLinkList61 {
         l5.val = 5;
         l4.next = l5;
         RotateLinkList61 rotateLinkList61 = new RotateLinkList61();
-        rotateLinkList61.rotateRight(l1,2);
+        rotateLinkList61.rotateRight2(l1, 2);
+    }
+
+
+    /**
+     * 使用数组记录
+     *
+     * @param head
+     * @param k
+     * @return
+     */
+    public ListNode rotateRight2(ListNode head, int k) {
+        if (head == null || head.next == null || k == 0) {
+            return head;
+        }
+        int len = 0;
+        ListNode node = head;
+        while (node.next != null) {
+            len += 1;
+            node = node.next;
+        }
+
+        len+=1;
+
+        // 计算K
+        if (k > len) {
+            k = k % len;
+        }
+        if (k==len){
+            return head;
+        }
+
+        // 将链表连成环
+        node.next = head;
+
+        // 从头结点开始的K位置断开 k+1 作为新的头结点
+        int count = 0;
+        ListNode newHead = head;
+        while (count < len-k-1 ) {
+            newHead = newHead.next;
+            count+=1;
+        }
+        ListNode result = newHead.next;
+        newHead.next = null;
+        return result;
+
     }
 
 
     /**
      * 每次移动一位 超过时间限制
+     *
      * @param head
      * @param k
      * @return
      */
     public ListNode rotateRight(ListNode head, int k) {
-        if (head==null ||head.next==null|| k==0){
+        if (head == null || head.next == null || k == 0) {
             return head;
         }
         int score = 1;
-
         //缩减次数
         int len = 0;
         ListNode node = head;
-        while (node!=null){
-            len+=1;
+        while (node != null) {
+            len += 1;
             node = node.next;
         }
 
         // 计算K
-        if (k>len){
+        if (k > len) {
             k = k % len;
         }
 
@@ -89,13 +134,13 @@ public class RotateLinkList61 {
                 be = af;
 
                 index = index.next;
-                if (index!=null && index.next!=null){
+                if (index != null && index.next != null) {
                     change = index.next;
-                }else {
+                } else {
                     change = head;
                 }
             }
-            score +=1;
+            score += 1;
         }
         return head;
     }
