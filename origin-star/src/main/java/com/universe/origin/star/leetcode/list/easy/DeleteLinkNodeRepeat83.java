@@ -14,6 +14,8 @@ import com.universe.origin.star.leetcode.list.ListNode;
  *
  * 输入: 1->1->2->3->3
  * 输出: 1->2->3
+ *
+ * 双指针思想
  */
 public class DeleteLinkNodeRepeat83 {
     public static void main(String[] args) {

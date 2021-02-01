@@ -11,7 +11,7 @@
     <modules>
 
         <module>main-sequence-star</module>
-        <module>read-giant-star</module>
+        <module>red-giant-star</module>
         <module>supernova-star</module>
         <module>neutron-star</module>
         <module>black-hole</module>

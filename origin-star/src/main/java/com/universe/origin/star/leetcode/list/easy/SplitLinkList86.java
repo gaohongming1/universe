@@ -1,4 +1,4 @@
-package com.universe.origin.star.leetcode.link.easy;
+package com.universe.origin.star.leetcode.list.easy;
 
 import java.util.Deque;
 import java.util.LinkedList;

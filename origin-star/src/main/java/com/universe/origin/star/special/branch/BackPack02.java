@@ -1,6 +1,5 @@
 package com.universe.origin.star.special.branch;
 
-import com.sun.deploy.util.ArrayUtil;
 
 import java.util.Arrays;
 import java.util.LinkedList;
