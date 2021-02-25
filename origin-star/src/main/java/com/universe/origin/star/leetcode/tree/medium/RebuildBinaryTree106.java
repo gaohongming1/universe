@@ -2,6 +2,9 @@ package com.universe.origin.star.leetcode.tree.medium;
 
 import com.universe.origin.star.leetcode.tree.TreeNode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  106. 从中序与后序遍历序列构造二叉树
@@ -28,6 +31,16 @@ public class RebuildBinaryTree106 {
     }
 
     public TreeNode buildTree(int[] inorder, int[] postorder) {
+        Map<Integer,Integer> map = new HashMap<>();
+
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i],i);
+        }
+
         return null;
+    }
+
+    public TreeNode recursion(int[] inorder, int[] postorder,int inLeft, int inRight, int postLeft,int postRight){
+
     }
 }
