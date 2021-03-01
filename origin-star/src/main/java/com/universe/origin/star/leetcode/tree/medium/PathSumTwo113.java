@@ -28,7 +28,7 @@ import java.util.List;
  * [5,8,4,5]
  * ]
  */
-public class PathSum113 {
+public class PathSumTwo113 {
     public static void main(String[] args) {
         TreeNode treeNode1 = new TreeNode(1);
         TreeNode treeNode2 = new TreeNode(-2);
@@ -44,7 +44,7 @@ public class PathSum113 {
         treeNode2.right = treeNode5;
         treeNode3.left = treeNode6;
         treeNode4.left = treeNode7;
-        PathSum113 pathSum113 = new PathSum113();
+        PathSumTwo113 pathSum113 = new PathSumTwo113();
         pathSum113.pathSum(treeNode1,2);
 
     }

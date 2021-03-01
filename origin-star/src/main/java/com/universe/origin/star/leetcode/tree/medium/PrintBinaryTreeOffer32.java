@@ -2,10 +2,7 @@ package com.universe.origin.star.leetcode.tree.medium;
 
 import com.universe.origin.star.leetcode.tree.TreeNode;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 剑指 Offer 32 - III. 从上到下打印二叉树 III
@@ -46,8 +43,38 @@ public class PrintBinaryTreeOffer32 {
     }
 
 
+    public int[] levelOrder2(TreeNode root) {
+
+        if (root == null) {
+            return new int[]{};
+        }
+
+        List<Integer> result = new ArrayList<>();
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.addLast(root);
+
+        while (!deque.isEmpty()) {
+            Deque<TreeNode> child = new LinkedList<>();
+            while (!deque.isEmpty()) {
+                TreeNode node = deque.pollFirst();
+                result.add(node.val);
+                if (node.left != null) {
+                    child.addLast(node.left);
+                }
+                if (node.right != null) {
+                    child.addLast(node.right);
+                }
+            }
+            deque = child;
+        }
+        return result.stream().mapToInt(Integer::intValue).toArray();
+
+    }
+
+
     /**
      * 层序遍历
+     * z 字形
      *
      * @param root
      * @return
