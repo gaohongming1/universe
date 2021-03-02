@@ -73,12 +73,10 @@ public class FillNextHand116 {
         Node tempLeft = root.left;
         Node index = root;
         while (index!=null){
-
             // index 节点的左右相连
             if (index.left!=null){
                 index.left.next = index.right;
             }
-
             if (index.right!=null){
                 if (index.next!=null){
                     index.right.next = index.next.left;
@@ -86,7 +84,6 @@ public class FillNextHand116 {
                     index.right.next = null;
                 }
             }
-
             if (index.next!=null){
                 index = index.next;
             }else {
@@ -99,7 +96,6 @@ public class FillNextHand116 {
             }
         }
         return temp;
-
     }
 
 
