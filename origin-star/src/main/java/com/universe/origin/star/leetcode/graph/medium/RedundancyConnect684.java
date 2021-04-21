@@ -35,28 +35,76 @@ import java.util.Map;
  * 二维数组中的整数在1到N之间，其中N是输入数组的大小。
  * 更新(2017-09-26):
  * 我们已经重新检查了问题描述及测试用例，明确图是无向 图。对于有向图详见冗余连接II。对于造成任何不便，我们深感歉意
+ * <p>
+ * 并查集问题
  */
 public class RedundancyConnect684 {
     public static void main(String[] args) {
         int[][] nums = new int[][]{
-                {1,2},
-                {1,3},
-                {2,3}
+                {1, 2},
+                {1, 3},
+                {2, 3}
         };
         RedundancyConnect684 redundancyConnect684 = new RedundancyConnect684();
 
         redundancyConnect684.findRedundantConnection(nums);
     }
 
+    public int[] findRedundantConnection(int[][] edges) {
+        int[] parent = new int[edges.length+1];
+        for (int i = 1; i <= edges.length; i++) {
+            parent[i] = i;
+        }
+        for (int i = 0; i < edges.length; i++) {
+            int[] edge = edges[i];
+            int node1 = edge[0];
+            int node2 = edge[1];
+            if (find(parent,node1)!=find(parent,node2)){
+                union(parent,node1,node2);
+            }else {
+                return edge;
+            }
+        }
+        return new int[0];
+    }
+
+    /**
+     * node1节点 挂在node2节点的父节点下
+     *
+     * @param parent
+     * @param node1
+     * @param node2
+     */
+    public void union(int[] parent, int node1, int node2) {
+        parent[find(parent, node1)] = find(parent, node2);
+    }
+
+    /**
+     * 查找父节点
+     *
+     * @param parent
+     * @param index
+     * @return
+     */
+    public int find(int[] parent, int index) {
+        // 这里同时进行了路径压缩
+        if (parent[index] != index) {
+            parent[index] = find(parent, parent[index]);
+        }
+        return parent[index];
+    }
+
+
     /**
      * 对于多的一条边 u v 肯定存在v的数量等于2
-     *
-     *[[1,3],[3,4],[1,5],[3,5],[2,3]]
+     * <p>
+     * [[1,3],[3,4],[1,5],[3,5],[2,3]]
      * [[1,4],[3,4],[1,3],[1,2],[4,5]]
+     *
      * @param edges
      * @return
      */
-    public int[] findRedundantConnection(int[][] edges) {
+    public int[] findRedundantConnection2(int[][] edges) {
         Map<Integer, Integer> map = new HashMap<>();
         Map<Integer, Integer> count = new HashMap<>();
         Integer v = Integer.MIN_VALUE;
@@ -68,7 +116,7 @@ public class RedundancyConnect684 {
             count.put(u, count.getOrDefault(u, 0) + 1);
             count.put(sv, count.getOrDefault(sv, 0) + 1);
 
-            if (map.containsKey(edges[i][1]) && v==Integer.MIN_VALUE) {
+            if (map.containsKey(edges[i][1]) && v == Integer.MIN_VALUE) {
                 v = edges[i][1];
             }
             map.put(edges[i][1], 1);
@@ -78,15 +126,15 @@ public class RedundancyConnect684 {
          * 倒叙找到可断开的点
          * u的边数量大于2
          */
-        for (int i = edges.length-1; i >=0; i--) {
+        for (int i = edges.length - 1; i >= 0; i--) {
             Integer u = edges[i][0];
             Integer sv = edges[i][1];
-            if (!sv.equals(v)){
+            if (!sv.equals(v)) {
                 continue;
-            }else {
-                if (count.get(u)<2){
+            } else {
+                if (count.get(u) < 2) {
                     continue;
-                }else {
+                } else {
                     return edges[i];
                 }
             }

@@ -5,6 +5,7 @@ import java.util.*;
 
 /**
  * 克鲁斯卡尔算法
+ * 最小生成树
  */
 public class Kruskal {
     public static void main(String[] args) {
