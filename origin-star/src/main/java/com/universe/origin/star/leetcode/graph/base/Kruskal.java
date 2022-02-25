@@ -6,6 +6,7 @@ import java.util.*;
 /**
  * 克鲁斯卡尔算法
  * 最小生成树
+ * http://data.biancheng.net/view/41.html
  */
 public class Kruskal {
     public static void main(String[] args) {
@@ -44,7 +45,7 @@ public class Kruskal {
                 }
             }
         }
-        //排序
+        //排序 升序排序
         graph.sort(new Comparator<Tubes>() {
             @Override
             public int compare(Tubes o1, Tubes o2) {
@@ -58,12 +59,12 @@ public class Kruskal {
         for (int i = 0; result.size() < matrix.length-1; i++) {
             Tubes tubes = graph.get(i);
 
-            // 判断两个点的标志是否一致
+            // 判断两个点的标志是否一致 如果不一致则代表在两个集合中  可以加入到最终结果中
             if (sign[tubes.u] != sign[tubes.v]) {
                 Integer changeSign = sign[tubes.v];
                 Integer targetSin = sign[tubes.u];
-
                 result.add(tubes);
+                // 对 v节点连接的边 的标识都是 changeSign   对其进行标记  进行两个集合整合
                 for (int j = 0; j < sign.length; j++) {
                     if (sign[j] == changeSign) {
                         sign[j] = targetSin;

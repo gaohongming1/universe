@@ -3,51 +3,52 @@ package com.universe.origin.star.special.greedy;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * prim 算法
+ */
 public class Prim {
     public static void main(String[] args) {
-        int[][] G = {{-1,3,-1,-1,6,5},
-                {3,-1,1,-1,-1,4},
-                {-1,1,-1,6,-1,4},
-                {-1,-1,6,-1,8,5},
-                {6,-1,-1,8,-1,2},
-                {5,4,4,5,2,-1}};
-        prim2(G,0);
+        int[][] G = {
+                {-1, 23, -1, -1, -1, 28, 36},
+                {23, -1, 20, -1, -1, -1, 1},
+                {-1, 20, -1, 15, -1, -1, 4},
+                {-1, -1, 15, -1, 3, -1, 9},
+                {-1, -1, -1, 3, -1, 17, 16},
+                {28, -1, -1, -1, 17, -1, 25},
+                {36, 1, 4, 9, 16, 25, -1},
+        };
+        prim2(G, 0);
+        // 0162345
 
     }
 
 
-    public static void prim2(int[][] am, int point) {
-        /**
-         * 1 初始化距离数组 -1代表不相邻
-         * 2 初始化已访问list
-         * 3 初始化未访问list
-         */
-
+    public static void prim(int[][] matrix, int point) {
         List<Integer> visited = new ArrayList<>();
         List<Integer> unVisited = new ArrayList<>();
-        for (int i = 0; i < am.length; i++) {
+        for (int i = 0; i < matrix.length; i++) {
             if (i == point) {
                 visited.add(point);
             } else {
                 unVisited.add(i);
             }
         }
-        while (visited.size() < am.length) {
-            //循环已访问节点找到对应的最小的边
+        //循环已经访问的节点 找到已访问的节点到未访问节点的最短路径
+        while (visited.size() < matrix.length) {
             int minDist = Integer.MAX_VALUE;
-            //记录最小边的两个点
-            int minVisitedPoint = -1;
             int minUnVisitedPoint = -1;
+
+            //双重循环找到两个集合之间的最短路径
             for (int i = 0; i < visited.size(); i++) {
                 for (int j = 0; j < unVisited.size(); j++) {
-                    if (am[visited.get(i)][unVisited.get(j)] < minDist) {
-                        minDist = am[visited.get(i)][unVisited.get(j)];
-                        minVisitedPoint = visited.get(i);
-                        minUnVisitedPoint = unVisited.get(j);
+                    if (matrix[visited.get(i)][unVisited.get(j)] < minDist && matrix[visited.get(i)][unVisited.get(j)] != -1) {
+                        minDist = matrix[visited.get(i)][unVisited.get(j)];
+
+                        minUnVisitedPoint = j;
                     }
                 }
             }
-            visited.add(minUnVisitedPoint);
+            visited.add(unVisited.get(minUnVisitedPoint));
             unVisited.remove(minUnVisitedPoint);
         }
         System.out.println(visited);
@@ -59,7 +60,7 @@ public class Prim {
      * @param am
      * @param point 点
      */
-    public static void prim(int[][] am, int point) {
+    public static void prim2(int[][] am, int point) {
         //循环临接矩阵，初始化最小值数组和临近节点数组
         int[] close = new int[am.length];
         int[] dist = new int[am.length];
@@ -67,7 +68,7 @@ public class Prim {
         //初始化已访问数组和未访问数组
         int[] visited = new int[am.length];
         visited[point] = point;
-        int[] unVisited = new int[am.length - 1];
+        int[] unVisited = new int[am.length ];
 
         for (int i = 0; i < am.length; i++) {
             //初始化最近的点都是point
@@ -120,4 +121,7 @@ public class Prim {
         }
 
     }
+
+
+
 }
