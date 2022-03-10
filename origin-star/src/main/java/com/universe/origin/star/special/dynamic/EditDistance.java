@@ -1,9 +1,12 @@
 package com.universe.origin.star.special.dynamic;
 
+/**
+ * 编辑距离
+ */
 public class EditDistance {
     public static void main(String[] args) {
         char[] str1 = new char[]{'f','a','m','i','l','y'};
-        char[] str2 = new char[]{'f','r','a','m','e'};
+        char[] str2 = new char[]{'q'};
         System.out.println(editDistance(str1,str2));
     }
 
@@ -12,9 +15,11 @@ public class EditDistance {
      * 先构造dp表 0-x递增
      * 状态转移方程
      * min（f[i-1][j] + 1 、f[i][j-1] + 1 、f[i-1][j-1] + diff[i][j]）
-     * @param str1
-     * @param str2
-     * @return
+     * f[i-1][j] + 1   代表 最后一位删除的情况下    x串的前 n-1 位和要比较的字符串的编辑距离 （长度不相等情况）
+     *
+     *f[i][j-1] + 1   代表 最后一位添加的情况下    x串的前 n-1 位和要比较的字符串的编辑距离（长度不相等情况）
+     *
+     * f[i-1][j-1] + diff[i][j]） 代表 长度相等情况下，最后一位 是改变 1还是不变 0 加上前面字符的编辑距离
      */
     public static int editDistance(char[] str1,char[] str2){
         int[][]dp = new int[str1.length+1][str2.length+1];

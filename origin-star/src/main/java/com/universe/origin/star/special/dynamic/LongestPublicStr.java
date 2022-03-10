@@ -1,5 +1,9 @@
 package com.universe.origin.star.special.dynamic;
 
+/**
+ * 最长公共子序列
+ * f(n) = f(n-1) || f(n-1) + n
+ */
 public class LongestPublicStr {
     public static void main(String[] args) {
         char[] str1 = new char[]{'a','b','c','a','d','a','b'};
@@ -16,6 +20,8 @@ public class LongestPublicStr {
      * @param str2
      * @return
      */
+
+
     public static char[] dynamicLongestPublicStr(char[]str1,char[]str2){
         //初始化dp数组
         int[][]dpSource = new int[str1.length+1][str2.length+1];
