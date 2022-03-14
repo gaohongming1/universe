@@ -52,8 +52,9 @@ public class BestMachiningOrder {
             f1 = f1 + workTime1[partStatus[j]];
             //回溯回来的时候使用
             int temp = f2;
-            //机器2所需的时间应该从时间线最大值开始计算
+            //机器2所需的时间应该从时间线最大值开始计算 也就是等到机器2开始加工零件 partStatus[j]  那么必须等待机器1加工完  或者机器2将上一个零件加工完
             f2 = Math.max(f1 + workTime2[partStatus[j]], f2 + workTime2[partStatus[j]]);
+
             //减枝函数判断 f2 小于当前的最优值才继续进行递归否则结束，回溯进行下条路的判断
             if (f2 <= bestValue) {
                 // 交换j 与i 在partStatus当中的状态,将j交换到已加工区间，这里还有其他的方式，比如数组+标记方式

@@ -6,7 +6,8 @@ import java.util.Arrays;
  * 最大团问题
  * 护卫队两两不是仇人
  * 也就是求无向图的最大完全子图
- * 这个类似背包问题，考虑X节点的加入符不符合加入条件，负责条件则加入，然后看加入后剩余节点加入的最大价值
+ * 这个类似背包问题，考虑X节点的加入符不符合加入条件，符合条件则加入，然后看加入后剩余节点加入的最大价值
+ * 这个也是会运行到叶子节点才会得到最终的解
  */
 public class MaximumGroup {
     public static void main(String[] args) {
@@ -29,6 +30,26 @@ public class MaximumGroup {
 
     }
 
+    /**
+     * 伪代码
+     *
+     * 1 判断当前是否到达叶子节点
+     *
+     * 2 当前节点加入判断 如果可以加入则走加入路线 进入递归
+     *
+     * 3 进行回溯当前节点加入
+     *
+     * 4 当前节点不加入进入递归
+     *
+     *
+      * @param adjacencyMatrix 存储节点之间是否相连
+     * @param i  当前判断的节点的下标
+     * @param currentStatus 当前的节点的加入情况
+     * @param bestStatus 最优解的情况
+     * @param bestVale 最优解
+     * @param currentValue 当前接
+     * @return
+     */
     public static Integer maxCompletelyGroup(int[][] adjacencyMatrix, int i, int[] currentStatus, int[] bestStatus, int bestVale, int currentValue) {
 
         /**
@@ -67,7 +88,10 @@ public class MaximumGroup {
         if ((currentValue + adjacencyMatrix.length - i - 1) > bestVale) {
             //表示当前节点走不加入的道路，递归计算不加入情况下剩余节点和已加入节点的值
             currentStatus[i] = 0;
-            bestVale = maxCompletelyGroup(adjacencyMatrix, i + 1, currentStatus, bestStatus, bestVale, currentValue);
+            int rightBestVale = maxCompletelyGroup(adjacencyMatrix, i + 1, currentStatus, bestStatus, bestVale, currentValue);
+            if (rightBestVale > bestVale) {
+                bestVale = rightBestVale;
+            }
         }
 
 

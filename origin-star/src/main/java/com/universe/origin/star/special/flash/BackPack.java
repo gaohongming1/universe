@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * 01 背包问题
+ * 这个问题是求最优解所以问题路径会走到所有的分
  */
 public class BackPack {
 
@@ -47,6 +48,7 @@ public class BackPack {
             bestResult = currentValue;
             return bestResult;
         }
+
         /**
          * 这里是限界条件如果符合加车则加车，否则走下面的回溯然后走不加车，相当于两个选择
          */
@@ -71,7 +73,11 @@ public class BackPack {
          */
         if (bound(i + 1, currentValue, value) > bestResult) {
             itemStatus[i] = 0;
-            bestResult = backTrack(i + 1, bestResult, bestItemStatus, itemStatus, value, weight, currentValue, currentWeight);
+            // 代表当前节点不加入背包，走剩下的节点的路径，当前节点已经被回溯
+            int rightBestResult = backTrack(i + 1, bestResult, bestItemStatus, itemStatus, value, weight, currentValue, currentWeight);
+            if (rightBestResult > bestResult) {
+                bestResult = rightBestResult;
+            }
         }
         return bestResult;
     }

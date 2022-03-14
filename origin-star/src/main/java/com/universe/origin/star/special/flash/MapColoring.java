@@ -22,22 +22,32 @@ public class MapColoring {
                 {0, 0, 0, 1, 1, 1, 0},
         };
         //记录所有的结果
-        int[][] allResult = new int[adjacencyMatrix.length][adjacencyMatrix.length];
+        int[][] allResult = new int[289][adjacencyMatrix.length];
         int[] currentValue = new int[adjacencyMatrix.length];
-        coloring(adjacencyMatrix, allResult, 0, currentValue, 3, 0);
+        coloring(adjacencyMatrix, allResult, 0, currentValue, 4, 0);
+        System.out.println(allResult.length);
+        int s=0;
         for (int i = 0; i < allResult.length; i++) {
             System.out.println(Arrays.toString(allResult[i]));
+            if (allResult[i][0] != 0) {
+                s+=1;
+            }
         }
+        System.out.println(s);
 
 
     }
 
+
     /**
-     * 地图着色
      *
-     * @param adjacencyMatrix 邻接矩阵
-     * @param allResult       所有的结果集
-     * @param i               当前点
+     * @param adjacencyMatrix 邻接矩阵存储边之间是否相连
+     * @param allResult 记录所有的染色结果
+     * @param i 当前位置
+     * @param currentValue 当前值
+     * @param color 可以进行染色的值
+     * @param resultIndex 结果列
+     * @return
      */
     public static int coloring(int[][] adjacencyMatrix, int[][] allResult, int i, int[] currentValue, int color, int resultIndex) {
 
